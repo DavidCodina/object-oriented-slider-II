@@ -159,7 +159,6 @@ for when you need borders. */
   width: 100%;
   border: 2px solid black;
   border-radius: 25px;
-  z-index: 2; /* Has to be lower than the controllers. */
 }
 
 
@@ -197,11 +196,35 @@ for when you need borders. */
 }
 
 /* https://www.w3schools.com/colors/colors_crayola.asp */
-#slider1 .slide:nth-of-type(1) { background-color: #FF355E; /* Radical Red */       }
-#slider1 .slide:nth-of-type(2) { background-color: #FF6037; /* Outrageous Orange */ }
-#slider1 .slide:nth-of-type(3) { background-color: #FFCC33; /* Sunglow */           }
-#slider1 .slide:nth-of-type(4) { background-color: #CCFF00; /* Electric Lime */     }
-#slider1 .slide:nth-of-type(5) { background-color: #50BFE6; /* Blizzard Blue */     }
+#slider1 .slide:nth-of-type(1),
+#slider3 .slide:nth-of-type(1),
+#slider4 .slide:nth-of-type(1)  {
+  background-color: #FF355E; /* Radical Red */
+}
+
+#slider1 .slide:nth-of-type(2),
+#slider3 .slide:nth-of-type(2),
+#slider4 .slide:nth-of-type(2) {
+  background-color: #FF6037; /* Outrageous Orange */
+}
+
+#slider1 .slide:nth-of-type(3),
+#slider3 .slide:nth-of-type(3),
+#slider4 .slide:nth-of-type(3) {
+  background-color: #FFCC33; /* Sunglow */
+}
+
+#slider1 .slide:nth-of-type(4),
+#slider3 .slide:nth-of-type(4),
+#slider4 .slide:nth-of-type(4) {
+  background-color: #CCFF00; /* Electric Lime */
+}
+
+#slider1 .slide:nth-of-type(5),
+#slider3 .slide:nth-of-type(5),
+#slider4 .slide:nth-of-type(5) {
+  background-color: #50BFE6; /* Blizzard Blue */
+}
 
 
 #slider2 .slide {
@@ -245,7 +268,7 @@ for when you need borders. */
   margin: 0;
   padding: 0;
   /* list-style-type: none; */
-  z-index: 3; /* Has to be higher than .sider:after & .slide-container */
+  z-index: 2; /* Has to be higher than .slide-container */
 }
 
 .indicator {
@@ -306,7 +329,7 @@ for when you need borders. */
   However, IOS Safari only supports auto and manipulation (See caniuse.com).
   https://stackoverflow.com/questions/10614481/disable-double-tap-zoom-option-in-browser-on-touch-devices */
   touch-action: manipulation;
-	z-index: 3; /* Has to be higher than .slider:after & .slide-container */
+	z-index: 2; /* Has to be higher than .slide-container */
 }
 
 .previous-controller { left: 0; }

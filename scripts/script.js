@@ -1,14 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Currently this implementation expects the HTML to have both .indicator(s) &
-//  a .previous-controller and .next-controller
-//  If one does not include indicators it will break the slider.
-//  If one does not include the controllers, it will cause a TypeError,
-//  but not break the slider.
-//
-//  A future implementation will wrap all related code in conditionals to avoid errors
-//  and make the Slider more flexible.
-//
 //  Additional features to be added later are optional automation, automation speed,
 //  and play/pause (maybe a stop, which reset the slider);
 //
@@ -16,10 +7,12 @@
 
 
 class Slider {
-  constructor(sliderId, currentSlideNumber = 1) {
-    this.slider               = document.getElementById(sliderId);
-    this.currentSlideNumber   = currentSlideNumber;
-    this.isChanging           = false;
+  constructor(sliderId, options = {}) {
+    this.slider             = document.getElementById(sliderId);
+    this.currentSlideNumber = options.currentSlideNumber || 1;
+    this.useIndicators      = (options.useIndicators  === false) ? false : true;
+    this.useControllers     = (options.useControllers === false) ? false : true;
+    this.isChanging         = false;
     this.init();
   }
 
@@ -32,7 +25,11 @@ class Slider {
   init(){
     const self         = this;
     const initialSlide = self.slider.querySelector(`[data-slide="${self.currentSlideNumber}"]`);
-    const indicators   = self.slider.getElementsByClassName('indicator');
+    let indicators;
+
+    if (self.useIndicators) {
+      indicators = self.slider.getElementsByClassName('indicator');
+    }
 
 
     /* ==============================
@@ -42,7 +39,9 @@ class Slider {
 
     (function setInitialSlideandIndicator(){
       initialSlide.classList.add('new-slide');
-      indicators[self.currentSlideNumber-1].classList.add('active');
+      if (self.useIndicators) {
+        indicators[self.currentSlideNumber-1].classList.add('active');
+      }
     })();
 
 
@@ -52,14 +51,16 @@ class Slider {
 
 
     (function addIndicatorEventListeners() {
-      for (let i = 0; i < indicators.length; i++){
-        let indicator = indicators[i];
+      if (self.useIndicators) {
+        for (let i = 0; i < indicators.length; i++){
+          let indicator = indicators[i];
 
-        indicator.addEventListener('click', function(e){
-          e.preventDefault(); //For <a>'s
-          self.indicateSlide(e);
-        });//End of event listener.
-      }//End of our for loop
+          indicator.addEventListener('click', function(e){
+            e.preventDefault(); //For <a>'s
+            self.indicateSlide(e);
+          });
+        }
+      }
     })();//End of IIFE
 
 
@@ -69,20 +70,22 @@ class Slider {
 
 
     (function addControllerEventListeners() {
-      const previousController = self.slider.getElementsByClassName('previous-controller')[0];
-      const nextController     = self.slider.getElementsByClassName('next-controller')[0];
+      if (self.useControllers) {
+        const previousController = self.slider.getElementsByClassName('previous-controller')[0];
+        const nextController     = self.slider.getElementsByClassName('next-controller')[0];
 
 
-      previousController.addEventListener('click', function(e){
-        e.preventDefault();
-        self.getPreviousSlide();
-      });
+        previousController.addEventListener('click', function(e){
+          e.preventDefault();
+          self.getPreviousSlide();
+        });
 
 
-      nextController.addEventListener('click', function(e){
-        e.preventDefault();
-        self.getNextSlide();
-      });
+        nextController.addEventListener('click', function(e){
+          e.preventDefault();
+          self.getNextSlide();
+        });
+      }
     })();//End of IIFE
   }//End of init(){ ... }
 
@@ -123,11 +126,13 @@ class Slider {
     self.isChanging    = true;
     const slides       = self.slider.getElementsByClassName('slide');
     const currentSlide = self.slider.querySelector(`[data-slide="${self.currentSlideNumber}"]`);
-    const indicators   = self.slider.getElementsByClassName('indicator');
+    let indicators;
+    if (self.useIndicators){ indicators = self.slider.getElementsByClassName('indicator'); }
     let newSlideIndex;
     let newSlideNumber;
 
 
+    //If there's 1 or less slides return early.
     if (slides.length <= 1){
       //console.log("Hey dopenheimer, there's not enough slides.");
       return;
@@ -150,7 +155,9 @@ class Slider {
 
 
     //Update the indicator
-    self.updateIndicator(indicators[newSlideIndex], indicators);
+    if (self.useIndicators){
+      self.updateIndicator(indicators[newSlideIndex], indicators);
+    }
 
 
     //Execute animation classes
@@ -190,11 +197,13 @@ class Slider {
     self.isChanging    = true;
     const slides       = self.slider.getElementsByClassName('slide');
     const currentSlide = self.slider.querySelector(`[data-slide="${self.currentSlideNumber}"]`);
-    const indicators   = self.slider.getElementsByClassName('indicator');
+    let indicators;
+    if (self.useIndicators){ indicators = self.slider.getElementsByClassName('indicator'); }
     let newSlideIndex;
     let newSlideNumber;
 
 
+    //If there's 1 or less slides return early.
     if (slides.length <= 1){
       //console.log("Hey dopenheimer, there's not enough slides.");
       return;
@@ -220,7 +229,9 @@ class Slider {
 
 
     //Update the indicator
-    self.updateIndicator(indicators[newSlideIndex], indicators);
+    if (self.useIndicators){
+      self.updateIndicator(indicators[newSlideIndex], indicators);
+    }
 
 
     //Execute animation classes
@@ -245,6 +256,8 @@ class Slider {
   /* ===========================================================================
                               indicateSlide
   =========================================================================== */
+  //There's no need to wrap 'indicator code' in a conditional statement.
+  //Becuase if there's no indicators, indicateSlide will never get invoked.
 
 
   indicateSlide(e){
@@ -303,9 +316,7 @@ class Slider {
       //Wait before resetting things.
       newSlide.addEventListener('animationend', function(){
         this.classList.remove('moveFromRight');
-        // const newSlideNumber    = newSlide.dataset.slide;
-        // self.currentSlideNumber = newSlideNumber;
-        self.isChanging         = false;
+        self.isChanging = false;
       });
     }
 
@@ -339,9 +350,7 @@ class Slider {
       //Wait before resetting things.
       newSlide.addEventListener('animationend', function(){
         this.classList.remove('moveFromLeft');
-        // const newSlideNumber    = newSlide.dataset.slide;
-        // self.currentSlideNumber = newSlideNumber;
-        self.isChanging         = false;
+        self.isChanging = false;
       });
     }
   }
@@ -355,5 +364,7 @@ class Slider {
 
 window.onload = function(){
   const slider1 = new Slider('slider1');
-  const slider2 = new Slider('slider2', 1);
+  const slider2 = new Slider('slider2', { currentSlideNumber: 2 });
+  const slider3 = new Slider('slider3', { currentSlideNumber: 1, useIndicators: false });
+  const slider4 = new Slider('slider4', { useControllers: false });
 };
