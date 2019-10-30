@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:900&display=swap');
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* { line-height: 1; }
+
+html {
+  font-family: sans-serif;
+  line-height: 1;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  background-color: black;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Open Sans", "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  line-height: 1;
+  color: #333;
+  text-align: left;
+  background-color: #282c34;
+  /* This is helpful for seeing what is actually happening (when the slider is a full page) */
+  /* transform: scale(0.75); */
+}
+
+article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
+  display: block;
+}
+
+
+/* =============================================================================
+
+============================================================================= */
+
+
+header {
+}
+
+
+/* =============================================================================
+
+============================================================================= */
+
+main {
+  flex: 1;
+  position: relative;
+  padding: 0;
+}
+
+.article {
+  width: 100%;
+  margin: 0px auto 50px auto;
+  padding: 25px;
+  color: #333;
+  background-color: snow;
+  border: 2px solid #61DAFB;
+  border-radius: 1.5rem  !important;
+}
+
+
+/* =============================================================================
+                                Typography
+============================================================================= */
+
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+h1 { font-size: 2.5rem;  }
+h2 { font-size: 2rem;    }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem;  }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem;    }
+
+
+/* ===========================
+           p
+=========================== */
+
+
+p {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  line-height: 1.75;
+}
+
+.fancy-h1 {
+  margin: 0;
+  padding: 50px 0;
+  color: snow;
+  text-align: center;
+  font-size: 50px;
+  font-family: Montserrat;
+  letter-spacing: 3px;
+  line-height: 1.25;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: #61DAFB;
+  text-shadow: -3px 3px 6px rgba(0,0,0,0.15);
+}
+
+.fancy-h2 {
+  color: snow;
+  font-size: 40px;
+  font-family: Montserrat;
+  letter-spacing: 1px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: violet;
+  text-shadow: -2px 2px 4px rgba(0,0,0,0.15);
+}
+
+
+/* =============================================================================
+                                slider
+============================================================================= */
+
+
+
+.slider {
+  /* position:relative is used here for sevearal reasons:
+
+    1. For .indicator-container, which is postion: absolute.
+    2. For the controller buttons, which are position: absolute.
+    3. For .slide, which is position: absolute.
+    4. Because .slider is an aspect-ratio container.   */
+  position:relative;
+  width: 75%;
+  margin: 0px auto 50px auto;
+  padding: 32.5% 0 0 0;
+}
+
+
+/* ===============================
+        .slide-container
+=============================== */
+
+
+.slide-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 25px;
+  /* overflow:hidden by itself simetimes doesn't work and you need to do this instead:
+  overflow-x:hidden;
+  overflow-y:hidden; */
+  overflow:hidden;
+  z-index: 1; /* For the border-radius to work. */
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 50px;
+  background-color: #282c34;
+}
+
+/* https://www.w3schools.com/colors/colors_crayola.asp */
+.slide:nth-of-type(1) {
+  background-color: #FF355E; /* Radical Red */
+}
+
+.slide:nth-of-type(2) {
+  background-color: #FF6037; /* Outrageous Orange */
+}
+
+.slide:nth-of-type(3) {
+  background-color: #FFCC33; /* Sunglow */
+
+}
+
+.slide:nth-of-type(4) {
+  background-color: #CCFF00; /* Electric Lime */
+
+}
+
+.slide:nth-of-type(5) {
+  background-color: #50BFE6 /* Blizzard Blue */
+}
+
+
+/* ===============================
+        .indicator-container
+=============================== */
+
+
+.indicator-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  /* list-style-type: none; */
+  z-index: 10; /* arbitrary */
+}
+
+.indicator {
+  height: 25px;
+  width: 25px;
+  margin: 0 10px;
+  padding: 0px;
+  color: white;
+  background-color: rgba(0,0,0, 0.25);
+  border: 0.5px solid #333;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 1px rgba(0,0,0,0.75),
+                    0px 1px 1px rgba(0,0,0,0.25);
+  outline: none;
+}
+
+.indicator:hover {
+}
+
+.indicator.active {
+  background-color: white;
+}
+
+.indicator.active:after {
+  display: block;
+  content: '';
+  position: relative;
+  top: 0; /* This has no effect regardless of value. */
+  left: 50%;
+  margin-bottom: 1px;
+  transform: translateX(-50%);
+  height: 75%;
+  width: 75%;
+  background-color: rgb(87,184,70);
+  border: 0.5px solid rgba(0,0,0,0.25);
+  border-radius: 50%;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.75);
+
+}
+
+/* ===============================
+      Controllers
+=============================== */
+
+
+.previous-controller,
+.next-controller {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 20%;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  opacity: 0.25;
+  transition: opacity 0.15s linear;
+  /* One person in the following article suggested that it should be set to touch-action: none.
+  However, IOS Safari only supports auto and manipulation (See caniuse.com).
+  https://stackoverflow.com/questions/10614481/disable-double-tap-zoom-option-in-browser-on-touch-devices */
+  touch-action: manipulation;
+	z-index: 2;
+}
+
+.previous-controller { left: 0; }
+.next-controller { right: 0; }
+
+.previous-controller:hover,
+.next-controller:hover {
+  opacity: 1;
+}
+
+.previous-controller span,
+.next-controller span {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 15px;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: rgb(220, 220, 220);
+  border: 1px solid rgba(0,0,0,0.15);
+  transition: opacity 0.15s linear, color 0.15s linear, background-color 0.15s linear;
+}
+
+.previous-controller span {
+  left: 0;
+  border-radius: 0 5px 5px 0;
+  border-left: none;
+  box-shadow: -2px 2px 4px rgba(0,0,0,0.25);
+}
+
+.next-controller span {
+  right: 0;
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+}
+
+.previous-controller:hover span,
+.next-controller:hover span {
+  color: rgb(200,200,200);
+  background-color: #333;
+}
+
+
+/* =============================================================================
+                        Media Queries
+============================================================================= */
+
+
+/* Extra large devices (large desktops, 1200px and up)
+No media query for `xl` since this would be the default */
+
+
+/* Large devices (desktops, 992px - 1199px) */
+@media (max-width: 1199px) {
+}
+
+/* Medium devices (tablets, 768px - 991px) */
+@media (max-width: 991px) {
+}
+
+/* Small devices (landscape phones, 576px - 767px) */
+@media (max-width: 767px) {
+}
+
+/* Extra small devices (landscape phones, 320px - 575px) */
+@media (max-width: 575px) {
+}

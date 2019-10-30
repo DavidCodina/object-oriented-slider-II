@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Object-Oriented Slider II</title>
+	<link rel="stylesheet" href="styles/slider-animation.css">
+  <link rel="stylesheet" href="styles/style.css">
+
+	<style>
+
+
+	</style>
+</head>
+
+
+<body>
+	<!-- =========================================================================
+                                  <header>
+	========================================================================== -->
+
+
+  <header>
+		<h1 class="fancy-h1">Object-Oriented Slider</h1>
+  </header>
+
+
+	<!-- =========================================================================
+                                   <main>
+	========================================================================== -->
+
+
+
+  <main>
+		<!-- The javascript depends on the slider having an id, and that id being passed to new Slider -->
+		<div id="slider1" class="slider">
+			<!-- Previous & Next Controls -->
+			<!-- The javascript depends on the .previous-controller & .next-controller classes -->
+			<button class="previous-controller"><span>&#10094;</span></button>
+			<button class="next-controller"><span>&#10095;</span></button>
+
+
+			<div class="indicator-container">
+				<!-- The javascript depends on there being a .indicator, as well as the data attribute. -->
+				<button class="indicator" data-slide-indicator="1"></button>
+				<button class="indicator" data-slide-indicator="2"></button>
+				<button class="indicator" data-slide-indicator="3"></button>
+			</div>
+
+
+			<div class="slide-container">
+				<!-- The javascript depends on there being a .slide, as well as the data attribute. -->
+				<div class="slide" data-slide="1">
+					<h2 class="fancy-h2">Slide 1:</h2>
+				</div>
+
+				<div class="slide" data-slide="2">
+					<h2 class="fancy-h2">Slide 2:</h2>
+				</div>
+
+				<div class="slide" data-slide="3">
+					<h2 class="fancy-h2">Slide 3:</h2>
+				</div>
+			</div>
+		</div><!-- End of <div id="slider1" class="slider"> -->
+
+
+		<div id="slider2" class="slider">
+			<button class="previous-controller"><span>&#10094;</span></button>
+			<button class="next-controller"><span>&#10095;</span></button>
+
+
+			<div class="indicator-container">
+				<button class="indicator" data-slide-indicator="1"></button>
+				<button class="indicator" data-slide-indicator="2"></button>
+				<button class="indicator" data-slide-indicator="3"></button>
+				<button class="indicator" data-slide-indicator="4"></button>
+				<button class="indicator" data-slide-indicator="5"></button>
+			</div>
+
+
+			<div class="slide-container">
+				<div class="slide" data-slide="1">
+					<h2 class="fancy-h2">Slide 1:</h2>
+				</div>
+
+				<div class="slide" data-slide="2">
+					<h2 class="fancy-h2">Slide 2:</h2>
+				</div>
+
+				<div class="slide" data-slide="3">
+					<h2 class="fancy-h2">Slide 3:</h2>
+				</div>
+
+				<div class="slide" data-slide="4">
+					<h2 class="fancy-h2">Slide 4:</h2>
+				</div>
+
+				<div class="slide" data-slide="5">
+					<h2 class="fancy-h2">Slide 5:</h2>
+				</div>
+			</div>
+		</div>
+
+  </main>
+	<script src="scripts/script.js"></script>
+</body>
+</html>
