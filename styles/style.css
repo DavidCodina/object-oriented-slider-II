@@ -132,7 +132,6 @@ p {
 ============================================================================= */
 
 
-
 .slider {
   /* position:relative is used here for sevearal reasons:
 
@@ -178,26 +177,34 @@ p {
 }
 
 /* https://www.w3schools.com/colors/colors_crayola.asp */
-.slide:nth-of-type(1) {
-  background-color: #FF355E; /* Radical Red */
-}
+#slider1 .slide:nth-of-type(1) { background-color: #FF355E; /* Radical Red */       }
+#slider1 .slide:nth-of-type(2) { background-color: #FF6037; /* Outrageous Orange */ }
+#slider1 .slide:nth-of-type(3) { background-color: #FFCC33; /* Sunglow */           }
+#slider1 .slide:nth-of-type(4) { background-color: #CCFF00; /* Electric Lime */     }
+#slider1 .slide:nth-of-type(5) { background-color: #50BFE6; /* Blizzard Blue */     }
 
-.slide:nth-of-type(2) {
-  background-color: #FF6037; /* Outrageous Orange */
-}
 
-.slide:nth-of-type(3) {
-  background-color: #FFCC33; /* Sunglow */
+#slider2 .slide { background-color: #333; }
 
-}
 
-.slide:nth-of-type(4) {
-  background-color: #CCFF00; /* Electric Lime */
+/* =================================
+          .slide  > img
+================================= */
 
-}
 
-.slide:nth-of-type(5) {
-  background-color: #50BFE6 /* Blizzard Blue */
+.slide  > img {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* You don't want to use height: 100%; because there may be cases where the image
+  is longer than the dimensions set by the aspect ratio box. In such cases that image
+  would overflow the aspect ratio box. For example, the fifth image is 3:1.
+  Similarly, you don't want to use width: 100% because if the image is not exactly the
+  same dimensions as the aspect ratio box, it will either squish or stretch the image; */
+  max-width: 100%;
+  max-height: 100%;
 }
 
 
@@ -254,11 +261,11 @@ p {
   border: 0.5px solid rgba(0,0,0,0.25);
   border-radius: 50%;
   box-shadow: 0px 1px 1px rgba(0,0,0,0.75);
-
 }
 
+
 /* ===============================
-      Controllers
+          Controllers
 =============================== */
 
 
