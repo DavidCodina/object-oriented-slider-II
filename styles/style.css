@@ -142,7 +142,24 @@ p {
   position:relative;
   width: 75%;
   margin: 0px auto 50px auto;
-  padding: 32.5% 0 0 0;
+  padding: 37.5% 0 0 0;
+}
+
+/* The border affects the aspect-ratio container, so this is a workaround
+for when you need borders. */
+.slider:after {
+  box-sizing: content-box;
+  padding: 0;
+  margin: -2px;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 25px;
+  z-index: 2; /* Has to be lower than the controllers. */
 }
 
 
@@ -157,13 +174,13 @@ p {
   left: 0;
   height: 100%;
   width: 100%;
-  border: 2px solid black;
+  /* Don't use a border here. It will mess up the aspec-ratio. */
   border-radius: 25px;
   /* overflow:hidden by itself simetimes doesn't work and you need to do this instead:
   overflow-x:hidden;
   overflow-y:hidden; */
   overflow:hidden;
-  z-index: 1; /* For the border-radius to work. */
+  z-index: 1; /* For the border-radius to work when the slides are animating. */
 }
 
 .slide {
@@ -173,7 +190,10 @@ p {
   height: 100%;
   width: 100%;
   padding: 50px;
-  background-color: #282c34;
+}
+
+#slider2 .slide {
+  padding: 0px !important;
 }
 
 /* https://www.w3schools.com/colors/colors_crayola.asp */
@@ -184,7 +204,9 @@ p {
 #slider1 .slide:nth-of-type(5) { background-color: #50BFE6; /* Blizzard Blue */     }
 
 
-#slider2 .slide { background-color: #333; }
+#slider2 .slide {
+  background-color: #333;
+}
 
 
 /* =================================
@@ -223,7 +245,7 @@ p {
   margin: 0;
   padding: 0;
   /* list-style-type: none; */
-  z-index: 10; /* arbitrary */
+  z-index: 3; /* Has to be higher than .sider:after & .slide-container */
 }
 
 .indicator {
@@ -284,7 +306,7 @@ p {
   However, IOS Safari only supports auto and manipulation (See caniuse.com).
   https://stackoverflow.com/questions/10614481/disable-double-tap-zoom-option-in-browser-on-touch-devices */
   touch-action: manipulation;
-	z-index: 2;
+	z-index: 3; /* Has to be higher than .slider:after & .slide-container */
 }
 
 .previous-controller { left: 0; }
