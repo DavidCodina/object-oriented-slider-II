@@ -9,9 +9,12 @@
 class Slider {
   constructor(sliderId, options = {}) {
     this.slider             = document.getElementById(sliderId);
-    this.currentSlideNumber = options.currentSlideNumber || 1;
+    this.currentSlideNumber = options.currentSlideNumber || 1; //Could break if not validated.
     this.useIndicators      = (options.useIndicators  === false) ? false : true;
     this.useControllers     = (options.useControllers === false) ? false : true;
+    this.makeAuto           = (options.makeAuto       === true ) ? true  : false;
+    this.autoSpeed          = options.autoSpeed || 6000;
+    this.pauseOnHover       = (options.pauseOnHover   === false) ? false : true;
     this.isChanging         = false;
     this.init();
   }
@@ -26,6 +29,7 @@ class Slider {
     const self         = this;
     const initialSlide = self.slider.querySelector(`[data-slide="${self.currentSlideNumber}"]`);
     let indicators;
+
 
     if (self.useIndicators) {
       indicators = self.slider.getElementsByClassName('indicator');
@@ -56,7 +60,7 @@ class Slider {
           let indicator = indicators[i];
 
           indicator.addEventListener('click', function(e){
-            e.preventDefault(); //For <a>'s
+            e.preventDefault();
             self.indicateSlide(e);
           });
         }
@@ -87,10 +91,39 @@ class Slider {
         });
       }
     })();//End of IIFE
+
+
+    /* ==============================
+            setAutomation
+    ============================== */
+
+
+    (function setAutomation() {
+      if (self.makeAuto) {
+        const x       = () => self.getNextSlide();
+        let getNext   = setInterval(x, self.autoSpeed);
+
+        if (self.pauseOnHover){
+          //Note: mouseover/mouseout would call event listeners repeatedly.
+          self.slider.addEventListener('mouseenter', function(){
+            clearInterval(getNext);
+          });
+
+          self.slider.addEventListener('mouseleave', function(){
+            getNext = setInterval(x, self.autoSpeed);
+          });
+        }
+      }
+    })();//End of IIFE
   }//End of init(){ ... }
 
 
+  /* ===========================================================================
+                          updateIndicator
+  =========================================================================== */
   //This method is used within getPreviousSlide, getNextSlide, and indicateSlide.
+
+
   updateIndicator(newIndicator, indicators){
     for (let i = 0; i < indicators.length; i++){
       let indicator = indicators[i];
@@ -113,7 +146,7 @@ class Slider {
   ============================== */
 
 
-  getPreviousSlide(e){
+  getPreviousSlide(){
     const self = this;
 
     //Return early if a slide change is already underway.
@@ -184,7 +217,7 @@ class Slider {
   ============================== */
 
 
-  getNextSlide(e){
+  getNextSlide(){
     const self = this;
 
     //Return early if a slide change is already underway.
@@ -363,8 +396,8 @@ class Slider {
 
 
 window.onload = function(){
-  const slider1 = new Slider('slider1');
-  const slider2 = new Slider('slider2', { currentSlideNumber: 2 });
-  const slider3 = new Slider('slider3', { currentSlideNumber: 1, useIndicators: false });
-  const slider4 = new Slider('slider4', { useControllers: false });
+  const slider1 = new Slider('slider1', { makeAuto:true, autoSpeed:3000 /*, pauseOnHover: false */ });
+  const slider2 = new Slider('slider2', { currentSlideNumber:2 });
+  const slider3 = new Slider('slider3', { currentSlideNumber:1, useIndicators:false });
+  const slider4 = new Slider('slider4', { useControllers:false });
 };
