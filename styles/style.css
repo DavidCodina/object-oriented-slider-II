@@ -31,7 +31,7 @@ body {
   line-height: 1;
   color: #333;
   text-align: left;
-  background-color: #282c34;
+  background-color: floralWhite;
   /* This is helpful for seeing what is actually happening (when the slider is a full page) */
   /* transform: scale(0.75); */
 }
@@ -378,7 +378,7 @@ for when you need borders. */
 
 
 /* =============================================================================
-                        Media Queries
+                        Media Queries (Desktop First)
 ============================================================================= */
 
 

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Additional features to be added later are optional automation, automation speed,
-//  and play/pause (maybe a stop, which reset the slider);
+//  Additional features to be added later:
+//  play/pause (maybe a stop, which will reset the slider);
 //
 ////////////////////////////////////////////////////////////////////////////////
 
